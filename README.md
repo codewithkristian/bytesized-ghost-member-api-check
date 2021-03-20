@@ -1,15 +1,7 @@
-# 👷 `worker-template` Hello World
+Simple API route to handle member checking for Bytesized
 
-A template for kick starting a Cloudflare worker project.
+I'd like to document this better but it's super hacky... so for anyone also trying to do simple JWT/member validation with their Ghost blog, here's what you should know:
 
-[`index.js`](https://github.com/cloudflare/worker-template/blob/master/index.js) is the content of the Workers script.
-
-#### Wrangler
-
-To generate using [wrangler](https://github.com/cloudflare/wrangler)
-
-```
-wrangler generate projectname https://github.com/cloudflare/worker-template
-```
-
-Further documentation for Wrangler can be found [here](https://developers.cloudflare.com/workers/tooling/wrangler).
+1. You can get authed member info for your Ghost blog by making a GET request to `/members/api/member`
+2. This codebase has a hard redirect to `/resources` when unauthorized
+3. A corresponding worker on a different site should redirect to this endpoint with a `back` search param, and then handle the corresponding response back. In my example, I send `uuid` back from this endpoint, and store it as a simple cookie to indicate "logged in" status for my auth-required site.
